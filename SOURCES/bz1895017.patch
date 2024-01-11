@@ -1,0 +1,20 @@
+--- a/squashfs-tools/unsquashfs.c	2021-01-14 14:34:49.658184361 -0600
++++ b/squashfs-tools/unsquashfs.c	2021-01-14 14:50:19.604100949 -0600
+@@ -822,8 +822,6 @@ int set_attributes(char *pathname, int m
+ {
+ 	struct utimbuf times = { time, time };
+ 
+-	write_xattr(pathname, xattr);
+-
+ 	if(utime(pathname, &times) == -1) {
+ 		ERROR("set_attributes: failed to set time on %s, because %s\n",
+ 			pathname, strerror(errno));
+@@ -846,6 +844,8 @@ int set_attributes(char *pathname, int m
+ 		return FALSE;
+ 	}
+ 
++	write_xattr(pathname, xattr);
++
+ 	return TRUE;
+ }
+ 
